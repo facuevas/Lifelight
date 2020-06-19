@@ -7,9 +7,9 @@ A mobile application that lets users post status updates to others. Users can no
 # TODO
 
 - [] BACKEND
-  - [] Create Database Schemas
-    - [] Account Schema
-    - [] Lifelight Schema
+  - [X] Create Database Schemas
+    - [X] Account Schema
+    - [X] Lifelight Schema
   - [] Express.js REST API
     - [] Account Endpoints
       - [] POST /v1/create_account -> creates a new account

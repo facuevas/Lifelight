@@ -8,8 +8,9 @@ router.route('/').get((req, res) => {
 });
 
 router.route('/:id').get((req, res) => {
-    Lifelight.findById(req.params._id)
+    Lifelight.findById(req.params.id)
         .then(lifelight => res.json(lifelight))
         .catch(err => res.status(400).json("ERROR" + err));
 });
 
+// TODO
