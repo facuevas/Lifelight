@@ -8,13 +8,6 @@ const validateEmail = (email) => {
 };
 
 const accountSchema = new Schema({
-    _id: {
-        type: mongoose.Schema.Types.ObjectId,
-        index: true,
-        required: true,
-        unique: true,
-        auto: true
-    },
     username: {
         type: String,
         required: true,
