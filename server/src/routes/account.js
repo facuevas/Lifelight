@@ -1,5 +1,4 @@
 const router = require('express').Router();
-const Lifelight = require('../models/account.model');
 const Account = require('../models/account.model');
 
 router.route('/create_account').post((req, res) => {
@@ -18,3 +17,5 @@ router.route('/show_accounts').get((req, res) => {
         .then(acc => res.json(acc))
         .catch(err => res.status(400).json('ERROR: ') + err);
 });
+
+module.exports = router;

@@ -2,20 +2,13 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const lifelightSchema = new Schema({
-    _id: {
-        type: mongoose.Schema.Types.ObjectId,
-        index: true,
-        required: true,
-        unique: true,
-        auto: true
-    },
+const lifelightSchema = new Schema({,
     account_id: {
         type: mongoose.Schema.Types.ObjectId,
         required: true
     },
-    is_positive: {
-        type: Boolean,
+    lifelight_type: {
+        type: String,
         required: true
     },
     title: {

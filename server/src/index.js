@@ -13,8 +13,7 @@ app.use(express.json());
 
 // ROUTES
 const accountRouter = require('./routes/account');
-
-app.use('v1/', accountRouter);
+app.use('/v1', accountRouter);
 
 // MONGO ATLASDB CONNECTION
 const uri = process.env.MONGO_DB_ATLAS;
