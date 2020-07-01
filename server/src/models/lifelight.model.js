@@ -2,11 +2,7 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const lifelightSchema = new Schema({,
-    account_id: {
-        type: mongoose.Schema.Types.ObjectId,
-        required: true
-    },
+const lifelightSchema = new Schema({
     lifelight_type: {
         type: String,
         required: true
@@ -14,7 +10,7 @@ const lifelightSchema = new Schema({,
     title: {
         type: String,
         required: true
-    }
+    },
     description: {
         type: String,
         required: true

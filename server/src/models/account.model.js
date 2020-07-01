@@ -30,6 +30,8 @@ const accountSchema = new Schema({
     },
     friends: [{type: mongoose.Schema.Types.ObjectId, ref: 'Account'}],
     lifelights: [{type: mongoose.Schema.Types.ObjectId, ref: 'Lifelight'}]
+}, {
+    timestamps: true
 });
 
 accountSchema.pre('save', function(next) {
