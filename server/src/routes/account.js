@@ -3,7 +3,7 @@ const passport = require('passport');
 const passportConfig = require('../passport');
 const JWT = require('jsonwebtoken');
 const Account = require('../models/account.model');
-const Lifelight = require('../models/lifelight.model');
+require('dotenv').config();
 
 const signToken = accID => {
     return JWT.sign({
@@ -34,6 +34,25 @@ router.post('/register', (req, res) => {
         }
     });
 });
+
+router.post('/login', passport.authenticate('local', {session: false}), (req, res) => {
+    if (req.isAuthenticated()) {
+        const {_id, username} = req.user;
+        const token = signToken(_id);
+        res.cookie('access_token', token, {httpOnly: true, sameSite: true});
+        res.status(200).json({isAuthenticated: true, user: {username}}); 
+    }
+});
+
+router.get('/logout', passport.authenticate('jwt', {session: false}), (req, res) => {
+    res.clearCookie('access_token');
+    res.json({user: {username: ""}, success: true});
+});
+
+router.get('/authenticated', passport.authenticate('jwt', {session: false}), (req, res) => {
+    const {username} = req.user;
+    res.status(200).json({isAuthenticated: true, user: {username}});
+})
 
 router.route('/show_accounts').get((req, res) => {
     Account.find()

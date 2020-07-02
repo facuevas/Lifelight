@@ -48,7 +48,7 @@ accountSchema.pre('save', function(next) {
 });
 
 accountSchema.methods.comparePassword = function(password, callback) {
-    bcrpyt.compare(password, thispassword, (err, isMatch) => {
+    bcrpyt.compare(password, this.password, (err, isMatch) => {
         if (err) {
             return callback(error);
         }

@@ -2,6 +2,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const helmet = require('helmet');
+const cookieParser = require('cookie-parser');
 const cors = require('cors');
 require('dotenv').config();
 
@@ -9,11 +10,15 @@ require('dotenv').config();
 const app = express();
 app.use(helmet());
 app.use(cors());
+app.use(cookieParser());
 app.use(express.json());
 
 // ROUTES
 const accountRouter = require('./routes/account');
+const lifelightRouter = require('./routes/lifelight');
 app.use('/v1', accountRouter);
+app.use('/v1', lifelightRouter);
+
 
 // MONGO ATLASDB CONNECTION
 const uri = process.env.MONGO_DB_ATLAS;
