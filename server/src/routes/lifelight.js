@@ -36,4 +36,15 @@ router.get('/lifelights', passport.authenticate('jwt', {session: false}), (req, 
     });
 });
 
+router.get('/:username', passport.authenticate('jwt', {session: false}), (req, res) => {
+    Account.findOne({username: req.params.username}).populate('lifelights').exec((err, document) => {
+        if (err) {
+            res.status(500).json({message: {msgBody: "Error has occured. Try again", msgError: true}});
+        }
+        else {
+            res.status(200).json({lifelights: document.lifelights, authenicated: true})
+        }
+    });
+});
+
 module.exports = router;
