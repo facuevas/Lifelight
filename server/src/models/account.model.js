@@ -28,7 +28,8 @@ const accountSchema = new Schema({
         validate: [validateEmail, 'Please fill a valid email address'],
         match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
     },
-    friends: [{type: mongoose.Schema.Types.ObjectId, ref: 'Account'}],
+    followers: [{type: mongoose.Schema.Types.ObjectId, ref: 'Account'}],
+    following: [{type: mongoose.Schema.Types.ObjectId, ref: 'Account'}],
     lifelights: [{type: mongoose.Schema.Types.ObjectId, ref: 'Lifelight'}]
 }, {
     timestamps: true

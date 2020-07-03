@@ -44,6 +44,7 @@ router.post('/login', passport.authenticate('local', {session: false}), (req, re
     }
 });
 
+
 router.get('/logout', passport.authenticate('jwt', {session: false}), (req, res) => {
     res.clearCookie('access_token');
     res.json({user: {username: ""}, success: true});
@@ -59,5 +60,10 @@ router.route('/show_accounts').get((req, res) => {
         .then(acc => res.json(acc))
         .catch(err => res.status(400).json('ERROR: ') + err);
 });
+
+// TODO
+// ADD FOLLOWERS
+// GET FOLLOWING
+
 
 module.exports = router;
