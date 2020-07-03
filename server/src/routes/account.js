@@ -86,7 +86,7 @@ router.get('/followers', passport.authenticate('jwt', {session: false}), (req, r
 })
 
 // Adds a another user to the user's following list
-// TODO -> CURRENTLY STORES INFORMATION
+// TODO -> SET USER AS A FOLLOWER TO OTHER ACCOUNT
 router.post('/:username/follow', passport.authenticate('jwt', {session: false}), (req, res) => {
     Account.findOne({username: req.params.username}).populate('_id').exec((err, document) => {
         if (err) {
@@ -94,11 +94,18 @@ router.post('/:username/follow', passport.authenticate('jwt', {session: false}),
         }
         else {
             req.user.following.push(document._id);
+            console.log(document.followers);
             req.user.save(err => {
                 if (err) {
                     res.status(500).json({message: {msgBody: "Error has occured. Try again", msgError: true}});
                 }
                 else {
+                    document.followers.push(req.user._id);
+                    document.save(err => {
+                        if (err) {
+                            res.status(500).json({message: {msgBody: "Error updating follower list on other user", msgError: true}});
+                        }
+                    })
                     res.status(200).json({message: {msgBody: "Successfully followed!", msgError: false}});
                 }
             })
