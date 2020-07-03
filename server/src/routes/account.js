@@ -65,5 +65,29 @@ router.route('/show_accounts').get((req, res) => {
 // ADD FOLLOWERS
 // GET FOLLOWING
 
+// Gets a user's list they are following
+router.route('/following', passport.authenticate('jwt', {session: false}), (req, res) => {
+    Account.findById({_id: req.user._id}).populate('following').exec((err, document) => {
+        if (err) {
+            res.status(500).json({message: {msgBody: "Error has occured displaying following list.", msgError: true}});
+        }
+        else {
+            res.status(200).json({following: document.following, authenticated: true});
+        }
+    })
+});
+
+// Gets a user's list of followers
+router.route('/followers', passport.authenticate('jwt', {session: false}), (req, res) => {
+    Account.findById({_id: req.user._id}).populate('followers').exec((err, document) => {
+        if (err) {
+            res.status(500).json({message: {msgBody: "Error has occured displaying followers list", msgError: true}});
+        }
+        else {
+            res.status(200).json({followers: document.followers, authenticated: true});
+        }
+    })
+})
+
 
 module.exports = router;

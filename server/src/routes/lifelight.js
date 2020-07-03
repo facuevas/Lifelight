@@ -31,7 +31,7 @@ router.get('/lifelights', passport.authenticate('jwt', {session: false}), (req, 
             res.status(500).json({message: {msgBody: "Error has occured. Try again", msgError: true}});
         }
         else {
-            res.status(200).json({lifelights: document.lifelights, authenicated: true})
+            res.status(200).json({lifelights: document.lifelights, authenicated: true});
         }
     });
 });
