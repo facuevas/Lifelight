@@ -47,4 +47,32 @@ router.get('/:username', passport.authenticate('jwt', {session: false}), (req, r
     });
 });
 
+router.get('/:username/:lifelight_id', passport.authenticate('jwt', {session: false}), (req, res) => {
+    Lifelight.findById({_id: req.params.lifelight_id}, (err, ll) => {
+        if (err) {
+            res.status(500).json({message: {msgBody: "Lifelight could not be found", msgError: true}});
+        }
+        else {
+            res.status(200).json({username: req.params.username, lifelight: ll})
+        }
+    })
+})
+
+// TODO. DOES NOT CURRENTLY WORK
+router.delete('/:username/:lifelight_id', passport.authenticate('jwt', {session: false}), (req, res) => {
+    if (req.params.username !== req.user.username) {
+        res.status(401).json({message: {msgBody: "You can only delete your own lifelights.", msgError: true}});
+    }
+    else {
+        Lifelight.deleteOne({_id: req.params.lifelight_id}, (err, ll) => {
+            if (err) {
+                res.status(401).json({message: {msgBody: "Lifelight cannot be deleted", msgError: true}});
+            }
+            else {
+                res.status(200).json({message: {msgBody: "LIfelight successfully deleted", msgError: false}});
+            }
+        })
+    }
+})
+
 module.exports = router;
