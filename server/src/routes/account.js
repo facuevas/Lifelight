@@ -5,6 +5,7 @@ const JWT = require('jsonwebtoken');
 const Account = require('../models/account.model');
 require('dotenv').config();
 
+// Sign token for our JWT authentication passport service
 const signToken = accID => {
     return JWT.sign({
         iss: "LIFELIGHT-LTD",
@@ -12,15 +13,21 @@ const signToken = accID => {
     }, process.env.SECRET_KEY, {expiresIn: "1h"});
 };
 
+// This POST request allows a new account to be registered and created
 router.post('/register', (req, res) => {
+    // Grab the username, password, and email fields from the request body
     const {username, password, email} = req.body;
+    // Query the database to see if a username that the request body contains already exists
     Account.findOne({username}, (err, acc) => {
+        // Throw an error if it exists
         if (err) {
             res.status(500).json({message: {msgBody: "Error has occured", msgError: true}});
         }
+        // If the account already exists with that username, throw an error and do not let it create an account
         if (acc) {
             res.status(401).json({message: {msgBody: "Username already taken. Try again.", msgError: true}});
         }
+        // Create the account
         else {
             const newAccount = new Account({username, password, email});
             newAccount.save(err => {
@@ -35,21 +42,29 @@ router.post('/register', (req, res) => {
     });
 });
 
+// This POST request allows our user to login our service
 router.post('/login', passport.authenticate('local', {session: false}), (req, res) => {
+    // Check if the requested body is authenticated
     if (req.isAuthenticated()) {
         const {_id, username} = req.user;
+        // Sign on with the sign token
         const token = signToken(_id);
+        // Send a cookie back with the access token
         res.cookie('access_token', token, {httpOnly: true, sameSite: true});
+        // Send a response back verifying the login
         res.status(200).json({isAuthenticated: true, user: {username}}); 
     }
 });
 
-
+// This GET request allows our user to logout of our service
 router.get('/logout', passport.authenticate('jwt', {session: false}), (req, res) => {
+    // Clear the session access token from the cookies
     res.clearCookie('access_token');
+    // Send a response back with an empty username indicated that they logged out
     res.json({user: {username: ""}, success: true});
 });
 
+// Used for our clientside to check if the user is logged into our service
 router.get('/authenticated', passport.authenticate('jwt', {session: false}), (req, res) => {
     const {username} = req.user;
     res.status(200).json({isAuthenticated: true, user: {username}});
