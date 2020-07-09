@@ -6,19 +6,28 @@ const Lifelight = require('../models/lifelight.model');
 const Account = require('../models/account.model');
 
 router.post('/create_lifelight', passport.authenticate('jwt', {session: false}), (req, res) => {
+    // Store the new requested lifelight into a variable
     const newLifelight = req.body;
+    // Append the created_by field by the requested user's id
     newLifelight.created_by = req.user._id;
+    // Create the new lifelight into a Lifelight object
     const lifelight = new Lifelight(newLifelight);
+    // Save into the database
     lifelight.save(err => {
+        // Throw error if there is one
         if (err) {
             res.status(500).json({message: {msgBody: "Error has occured. Try again", msgError: true}});
         }
         else {
+            // Push into the lifelights list on the Account model
             req.user.lifelights.push(lifelight);
+            // Save the changes.
             req.user.save(err => {
+                // Throw error if there is one
                 if (err) {
                     res.status(500).json({message: {msgBody: "Error has occured. Try again", msgError: true}});
                 }
+                // Send a response indicating that the lifelight was successfully created
                 else {
                     res.status(200).json({message: {msgBody: "Lifelight successfully created!", msgError: false}});
                 }
@@ -51,24 +60,15 @@ router.get('/feed', passport.authenticate('jwt', {session: false}), (req, res) =
             // Grab the followers list
             const followings = acc.following;
             let results = [];
-            Account.find().where('_id').in(followings).exec((err, records) => {
-                let lifelight_ids = [];
+            Lifelight.find().where('created_by').in(followings).exec((err, records) => {
                 if (err) {
                     res.status(500).json({message: {msgBody: "Error has occured", msgError: true}});
                 }
                 else {
-                    // might be buggy. will need to fix later.
-                    console.log(records);
-                    for (let i = 0; i < records.length; i++) {
-                        console.log(records[i].length);
-                        for (let j = 0; j < records[i].length; j++) {
-                            lifelight_ids.push(records.lifelights[i][j]);
-                            console.log(records.lifelights[i][j]);
-                        }
-                    }
-                    console.log(lifelight_ids);
+                    const sortedLifelights = records.sort((a, b) => b.createdAt - a.createdAt);
+                    res.status(200).json({feed: sortedLifelights, authenticated: true});
                 }
-            });
+            })
         }
     })
 });
