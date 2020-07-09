@@ -14,6 +14,9 @@ const lifelightSchema = new Schema({
     description: {
         type: String,
         required: true
+    },
+    created_by: {
+        type: mongoose.Schema.Types.ObjectId, ref: 'Account'
     }
 }, {
     timestamps: true
