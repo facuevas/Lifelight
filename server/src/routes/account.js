@@ -55,12 +55,6 @@ router.get('/authenticated', passport.authenticate('jwt', {session: false}), (re
     res.status(200).json({isAuthenticated: true, user: {username}});
 });
 
-router.get('/show_accounts', ((req, res) => {
-    Account.find()
-        .then(acc => res.json(acc))
-        .catch(err => res.status(400).json('ERROR: ') + err);
-}));
-
 // Gets a user's list they are following
 router.get('/following', passport.authenticate('jwt', {session: false}), (req, res) => {
     Account.findById({_id: req.user._id}).populate('following').exec((err, document) => {
