@@ -1,9 +1,18 @@
 import React from 'react';
-import './App.css';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+
+// Components and pages
+import Navbar from './Components/Navbar';
+import Login from './Pages/Login';
+import Home from './Pages/Home';
 
 const App = () => {
   return(
-    <h1 className="container-fluid">Hello World!</h1>
+    <Router>
+      <Navbar />
+      <Route exact path="/" component={Home} />
+      <Route path="/login" component={Login} />
+    </Router>
   );
 }
 

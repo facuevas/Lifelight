@@ -52,7 +52,7 @@ router.post('/login', passport.authenticate('local', {session: false}), (req, re
         // Send a cookie back with the access token
         res.cookie('access_token', token, {httpOnly: true, sameSite: true});
         // Send a response back verifying the login
-        res.status(200).json({isAuthenticated: true, user: {username}}); 
+        res.status(200).json({isAuthenticated: true, account: {username}}); 
     }
 });
 
@@ -61,13 +61,13 @@ router.get('/logout', passport.authenticate('jwt', {session: false}), (req, res)
     // Clear the session access token from the cookies
     res.clearCookie('access_token');
     // Send a response back with an empty username indicated that they logged out
-    res.json({user: {username: ""}, success: true});
+    res.json({account: {username: ""}, success: true});
 });
 
 // Used for our clientside to check if the user is logged into our service
 router.get('/authenticated', passport.authenticate('jwt', {session: false}), (req, res) => {
     const {username} = req.user;
-    res.status(200).json({isAuthenticated: true, user: {username}});
+    res.status(200).json({isAuthenticated: true, account: {username}});
 });
 
 // Gets a user's list they are following
