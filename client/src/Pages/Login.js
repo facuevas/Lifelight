@@ -38,6 +38,8 @@ const Login = props => {
                         onChange={onChange}
                         className="form-control" 
                         placeholder="Enter Username"
+                        required="required"
+                        pattern="[A-Za-z0-9]{1,20}"
                 />
                 <label htmlFor="password" className="sr-only">Password</label>
                 <input type="password"
@@ -45,6 +47,8 @@ const Login = props => {
                         onChange={onChange}
                         className="form-control"
                         placeholder="Enter Password"
+                        required="required"
+                        pattern="[A-Za-z0-9]{1,20}"
                 />
                 <button className="btn btn-lg btn-primary btn-block" type="submit">Login</button>
             </form>

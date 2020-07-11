@@ -48,6 +48,8 @@ const Register = props => {
                         onChange={onChange}
                         className="form-control"
                         placeholder="Enter a username"
+                        required="required"
+                        pattern="[A-Za-z0-9]{1,20}"
                  />
                  <label htmlFor="password" className="sr-only">Password</label>
                 <input type="password"
@@ -56,6 +58,8 @@ const Register = props => {
                         onChange={onChange}
                         className="form-control"
                         placeholder="Enter a password"
+                        required="required"
+                        pattern="[A-Za-z0-9]{1,20}"
                  />
                  <label htmlFor="email" className="sr-only">Email</label>
                 <input type="text"
@@ -64,6 +68,8 @@ const Register = props => {
                         onChange={onChange}
                         className="form-control"
                         placeholder="Enter your email address"
+                        required="required"
+                        pattern="[A-Za-z0-9]{1,20}"
                  />
                  <button type="submit" className="btn btn-lg btn-primary btn-block">Register</button>
             </form>
