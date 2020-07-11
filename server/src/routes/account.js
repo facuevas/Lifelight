@@ -35,7 +35,7 @@ router.post('/register', (req, res) => {
                     res.status(500).json({message: {msgBody: "Error has occured", msgError: true}});
                 }
                 else {
-                    res.status(201).json({message: {msgBody: "Account successfully created", msgError: true}});
+                    res.status(201).json({message: {msgBody: "Account successfully created", msgError: false}});
                 }
             });
         }
