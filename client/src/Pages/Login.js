@@ -16,7 +16,7 @@ const Login = props => {
             if (isAuthenticated) {
                 authContext.setAccount(account);
                 authContext.setIsAuthenticated(isAuthenticated);
-                props.history.push('/');
+                props.history.push('/feed');
             }
             else {
                 setMessage(message);

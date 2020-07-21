@@ -1,8 +1,6 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import LifelightItem from '../Components/LifelightItem';
-import Message from '../Components/Message';
 import LifelightService from '../Services/LifelightService';
-import { AuthContext } from '../Context/AuthContext'; 
 
 const Lifelights = props => {
     //const [lifelight, setLifelight] = useState({lifelight_type: "", title: "", description: "", created_by: ""}); -> might be used to create lifelights. debating on whether allow user to add lifelights here or on another page

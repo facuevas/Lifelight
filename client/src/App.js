@@ -7,6 +7,7 @@ import Login from './Pages/Login';
 import Home from './Pages/Home';
 import Register from './Pages/Register';
 import Lifelights from './Pages/Lifelights';
+import Feed from './Pages/Feed';
 
 const App = () => {
   return(
@@ -16,6 +17,7 @@ const App = () => {
       <Route path="/login" component={Login} />
       <Route path="/register" component={Register} />
       <Route path="/lifelights" component={Lifelights} />
+      <Route path="/feed" component={Feed} />
     </Router>
   );
 }
