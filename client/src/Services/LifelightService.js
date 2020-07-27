@@ -26,5 +26,16 @@ export default {
                 return { message: {msgBody: "Unauthorized", msgError: true}};
             }
         })
+    },
+    getUsername: user_id => {
+        return fetch('/v1/find/'+user_id)
+            .then(res => {
+                if (res.status !== 401) {
+                    return res.json().then(data => data);
+                }
+                else {
+                    return { message: {msgBody: "Error retrieving username from client-side", msgError: true}};
+                }
+            });
     }
 }

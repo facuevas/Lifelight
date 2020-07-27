@@ -149,4 +149,11 @@ router.post('/:username/unfollow', passport.authenticate('jwt', {session: false}
     })
 });
 
+// Returns the user's username by passing it their user_id
+router.get('/find/:user_id', passport.authenticate('jwt', {ession: false}), (req, res) => {
+    Account.findById(req.params.user_id)
+        .then(acc => acc)
+        .catch(err => res.status.400.json({message: {msgBody: "Error retrieving username", msgBody: true}}));
+})
+
 module.exports = router;
