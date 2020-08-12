@@ -1,6 +1,6 @@
 # LIFELIGHT
 
-A mobile application that lets users post status updates to others. Users can note if their update was a positive or negative experience. Every month, the application will give them a brief summary of the previous month in terms of how many positive or negative experiences they had.
+A mobile application that lets users post status updates to others. Users can note if their update was a positive or negative experience. Every month, the application will give them a brief summary of the previous month in terms of how many positive or negative experiences they had. Currently put this project on pause due to current time constraints and commitments.
 
 <br>
 
